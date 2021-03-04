@@ -15,7 +15,7 @@
     <dmn:itemComponent id="_277DE624-9EE6-4ACE-A455-5E08688D582D" name="paire" isCollection="false">
       <dmn:typeRef>string</dmn:typeRef>
     </dmn:itemComponent>
-    <dmn:itemComponent id="_47489B03-519C-4C71-AF89-A4BE25F44158" name="value" isCollection="false">
+    <dmn:itemComponent id="_47489B03-519C-4C71-AF89-A4BE25F44158" name="values" isCollection="true">
       <dmn:typeRef>number</dmn:typeRef>
     </dmn:itemComponent>
   </dmn:itemDefinition>
@@ -23,72 +23,107 @@
     <dmn:extensionElements/>
     <dmn:variable id="_E4A3960C-7C2C-4883-B8AF-6AF0A6D96F54" name="currency" typeRef="currency"/>
   </dmn:inputData>
-  <dmn:decision id="_44E5AC6B-81C2-4347-B26D-AD2DE7AB6878" name="alert">
-    <dmn:extensionElements/>
-    <dmn:variable id="_1B3FC6E4-0701-41D9-B513-8890FE1A8356" name="alert" typeRef="string"/>
-    <dmn:informationRequirement id="_BB5D5C2D-67D2-4A72-ACE6-301B7D2BD9C5">
-      <dmn:requiredInput href="#_E120C086-1EC3-4FBF-BDEF-365282CEE991"/>
-    </dmn:informationRequirement>
-    <dmn:informationRequirement id="_E42374CA-5A8F-4E5D-A88C-79FDDF7E62EC">
-      <dmn:requiredInput href="#_B9B13F84-F7F0-44DB-A7A6-CF2E7F8C95C1"/>
-    </dmn:informationRequirement>
-    <dmn:decisionTable id="_DFBDCDA7-4695-490F-82D1-735C4B0E68E3" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
-      <dmn:input id="_2A4DEC78-A035-46A6-8660-2B565981866C">
-        <dmn:inputExpression id="_E8E70ED9-813D-4D6A-93BB-3FEA85E73DA1" typeRef="string">
-          <dmn:text>currency.paire</dmn:text>
-        </dmn:inputExpression>
-      </dmn:input>
-      <dmn:input id="_9269CC46-4597-42A6-90B4-AC37F68D70FE">
-        <dmn:inputExpression id="_2BB00CD8-9F75-4DCB-9E46-B2652160DDA0" typeRef="number">
-          <dmn:text>currency.value</dmn:text>
-        </dmn:inputExpression>
-      </dmn:input>
-      <dmn:output id="_8C58833C-F62D-420C-BA17-651630CE82D0"/>
-      <dmn:annotation name="annotation-1"/>
-      <dmn:rule id="_DAC6DB8C-E4D7-4821-8B83-AB730BA7F760">
-        <dmn:inputEntry id="_80B08CE6-B1F6-491D-9F28-93B23B25272C">
-          <dmn:text>"euro-dollar"</dmn:text>
-        </dmn:inputEntry>
-        <dmn:inputEntry id="_F9B7D729-0C74-411C-943C-4926F861E3D8">
-          <dmn:text>&gt; threshold.value</dmn:text>
-        </dmn:inputEntry>
-        <dmn:outputEntry id="_DDD6F966-C6F1-408C-8675-037EECD9EF7A">
-          <dmn:text>"Sell the euro-dollar"</dmn:text>
-        </dmn:outputEntry>
-        <dmn:annotationEntry>
-          <dmn:text/>
-        </dmn:annotationEntry>
-      </dmn:rule>
-      <dmn:rule id="_2255F4D3-F6D3-4C51-9557-0649B7B2E64A">
-        <dmn:inputEntry id="_E8FBE96B-A40C-4F9B-9475-96CAADE1DA3D">
-          <dmn:text>"euro-dinars"</dmn:text>
-        </dmn:inputEntry>
-        <dmn:inputEntry id="_B98E6D9E-A5A2-468D-8BD5-0EEDAEA68E5F">
-          <dmn:text>&lt; threshold.value</dmn:text>
-        </dmn:inputEntry>
-        <dmn:outputEntry id="_FD701F83-6BB6-4F7C-902E-14F288D5E65F">
-          <dmn:text>"Buy the euro-dinars"</dmn:text>
-        </dmn:outputEntry>
-        <dmn:annotationEntry>
-          <dmn:text/>
-        </dmn:annotationEntry>
-      </dmn:rule>
-    </dmn:decisionTable>
-  </dmn:decision>
   <dmn:inputData id="_B9B13F84-F7F0-44DB-A7A6-CF2E7F8C95C1" name="threshold">
     <dmn:extensionElements/>
     <dmn:variable id="_66A14F97-587D-4BED-9432-823859DD209F" name="threshold" typeRef="threshold"/>
   </dmn:inputData>
+  <dmn:decision id="_95ACFD09-973F-4543-B7E5-1F9FAA9688CD" name="alerts">
+    <dmn:extensionElements/>
+    <dmn:variable id="_6F78A572-AD3F-4C24-A959-B4C7F790E4AF" name="alerts" typeRef="Any"/>
+    <dmn:informationRequirement id="_E42374CA-5A8F-4E5D-A88C-79FDDF7E62EC">
+      <dmn:requiredInput href="#_B9B13F84-F7F0-44DB-A7A6-CF2E7F8C95C1"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_BB5D5C2D-67D2-4A72-ACE6-301B7D2BD9C5">
+      <dmn:requiredInput href="#_E120C086-1EC3-4FBF-BDEF-365282CEE991"/>
+    </dmn:informationRequirement>
+    <dmn:knowledgeRequirement id="_D6EEEB5A-F456-40FA-8341-E842B460F370">
+      <dmn:requiredKnowledge href="#_3591B61E-2FB7-4737-BB53-152F985D2CBB"/>
+    </dmn:knowledgeRequirement>
+    <dmn:literalExpression id="_F69701BE-A935-448E-B03F-33FC3DDBD95C">
+      <dmn:text>for val in threshold.values return [alert(val, currency)]</dmn:text>
+    </dmn:literalExpression>
+  </dmn:decision>
+  <dmn:businessKnowledgeModel id="_3591B61E-2FB7-4737-BB53-152F985D2CBB" name="alert">
+    <dmn:extensionElements/>
+    <dmn:variable id="_158370B4-1A8C-4AE1-B7CC-81B50AAF1560" name="alert" typeRef="string"/>
+    <dmn:encapsulatedLogic id="_BC26E88D-67B1-4A12-A549-A4D9AF77927C" kind="FEEL">
+      <dmn:formalParameter id="_D5F35B78-D70F-461F-8EF5-D179E3B7648E" name="val" typeRef="number"/>
+      <dmn:formalParameter id="_906BED06-F722-4317-B493-0A81263ADC74" name="currency" typeRef="currency"/>
+      <dmn:decisionTable id="_6D2AABDC-FF54-4640-A76E-EF1F1D2CD006" hitPolicy="RULE ORDER" preferredOrientation="Rule-as-Row">
+        <dmn:input id="_A108F99A-56F2-476F-9067-A61920877D5A">
+          <dmn:inputExpression id="_5A1164A7-F449-4B11-9050-178770AAB185" typeRef="string">
+            <dmn:text>currency.paire</dmn:text>
+          </dmn:inputExpression>
+        </dmn:input>
+        <dmn:input id="_0F83E176-C279-4293-AA5F-7E60B61191EA">
+          <dmn:inputExpression id="_5C24EC94-34F3-41D2-8913-B85F6765ECA3" typeRef="number">
+            <dmn:text>currency.value</dmn:text>
+          </dmn:inputExpression>
+        </dmn:input>
+        <dmn:output id="_81915D5B-A8BF-4878-81CB-23CFEFF4F386"/>
+        <dmn:annotation name="annotation-1"/>
+        <dmn:rule id="_F89B1C7B-981A-479D-A546-B66162E076F1">
+          <dmn:inputEntry id="_4BA4F666-033E-439D-BE3B-6AD1978AA825">
+            <dmn:text>"euro-dollar"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_E1C326DB-0230-4826-B4EA-EFD72715D2AD">
+            <dmn:text>= val</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_6115FAC6-C6D9-4AAD-AA90-0DDEDD945DC8">
+            <dmn:text>"alert 1"</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+        <dmn:rule id="_3772F6ED-FA73-4E64-B76E-189095E6A6E6">
+          <dmn:inputEntry id="_03D62435-930A-467A-99C3-50BBBC323FC4">
+            <dmn:text>"euro-dollar"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_DA4557BE-670B-41C5-B7E3-30BE0FB7F1DF">
+            <dmn:text>&lt; val</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_A6569C22-B3B0-4C7B-95B1-F55030BED649">
+            <dmn:text>"alert 2"</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+        <dmn:rule id="_69399033-9773-4AC7-8C14-80B20EB38838">
+          <dmn:inputEntry id="_95DBA3A7-920A-4EBD-865D-3AD6672DB2BC">
+            <dmn:text>"euro-dollar"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_D82D6F81-DC86-4F65-A47F-9441FD6F2111">
+            <dmn:text>&gt; val</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_25D51586-70E9-4103-8B01-E7A10360DFA5">
+            <dmn:text>"alert 3"</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+      </dmn:decisionTable>
+    </dmn:encapsulatedLogic>
+  </dmn:businessKnowledgeModel>
   <dmndi:DMNDI>
     <dmndi:DMNDiagram id="_1222D9A1-08DC-4335-B36B-F84223BB1CA8" name="DRG">
       <di:extension>
         <kie:ComponentsWidthsExtension>
-          <kie:ComponentWidths dmnElementRef="_DFBDCDA7-4695-490F-82D1-735C4B0E68E3">
+          <kie:ComponentWidths dmnElementRef="_F69701BE-A935-448E-B03F-33FC3DDBD95C">
+            <kie:width>719</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_6D2AABDC-FF54-4640-A76E-EF1F1D2CD006">
             <kie:width>50</kie:width>
             <kie:width>100</kie:width>
-            <kie:width>193</kie:width>
-            <kie:width>646</kie:width>
-            <kie:width>403</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>100</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_BC26E88D-67B1-4A12-A549-A4D9AF77927C">
+            <kie:width>50</kie:width>
+            <kie:width>470</kie:width>
           </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
       </di:extension>
@@ -98,16 +133,7 @@
           <dmndi:StrokeColor red="0" green="0" blue="0"/>
           <dmndi:FontColor red="0" green="0" blue="0"/>
         </dmndi:DMNStyle>
-        <dc:Bounds x="317" y="427" width="100" height="50"/>
-        <dmndi:DMNLabel/>
-      </dmndi:DMNShape>
-      <dmndi:DMNShape id="dmnshape-drg-_44E5AC6B-81C2-4347-B26D-AD2DE7AB6878" dmnElementRef="_44E5AC6B-81C2-4347-B26D-AD2DE7AB6878" isCollapsed="false">
-        <dmndi:DMNStyle>
-          <dmndi:FillColor red="255" green="255" blue="255"/>
-          <dmndi:StrokeColor red="0" green="0" blue="0"/>
-          <dmndi:FontColor red="0" green="0" blue="0"/>
-        </dmndi:DMNStyle>
-        <dc:Bounds x="477" y="255" width="100" height="50"/>
+        <dc:Bounds x="328" y="427" width="100" height="50"/>
         <dmndi:DMNLabel/>
       </dmndi:DMNShape>
       <dmndi:DMNShape id="dmnshape-drg-_B9B13F84-F7F0-44DB-A7A6-CF2E7F8C95C1" dmnElementRef="_B9B13F84-F7F0-44DB-A7A6-CF2E7F8C95C1" isCollapsed="false">
@@ -116,16 +142,38 @@
           <dmndi:StrokeColor red="0" green="0" blue="0"/>
           <dmndi:FontColor red="0" green="0" blue="0"/>
         </dmndi:DMNStyle>
-        <dc:Bounds x="725" y="427" width="100" height="50"/>
+        <dc:Bounds x="590" y="427" width="100" height="50"/>
         <dmndi:DMNLabel/>
       </dmndi:DMNShape>
-      <dmndi:DMNEdge id="dmnedge-drg-_BB5D5C2D-67D2-4A72-ACE6-301B7D2BD9C5" dmnElementRef="_BB5D5C2D-67D2-4A72-ACE6-301B7D2BD9C5">
-        <di:waypoint x="367" y="452"/>
-        <di:waypoint x="527" y="255"/>
-      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="dmnshape-drg-_95ACFD09-973F-4543-B7E5-1F9FAA9688CD" dmnElementRef="_95ACFD09-973F-4543-B7E5-1F9FAA9688CD" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="431" y="302" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_3591B61E-2FB7-4737-BB53-152F985D2CBB" dmnElementRef="_3591B61E-2FB7-4737-BB53-152F985D2CBB" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="647" y="302" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
       <dmndi:DMNEdge id="dmnedge-drg-_E42374CA-5A8F-4E5D-A88C-79FDDF7E62EC" dmnElementRef="_E42374CA-5A8F-4E5D-A88C-79FDDF7E62EC">
-        <di:waypoint x="775" y="452"/>
-        <di:waypoint x="527" y="305"/>
+        <di:waypoint x="640" y="452"/>
+        <di:waypoint x="481" y="352"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_BB5D5C2D-67D2-4A72-ACE6-301B7D2BD9C5" dmnElementRef="_BB5D5C2D-67D2-4A72-ACE6-301B7D2BD9C5">
+        <di:waypoint x="378" y="452"/>
+        <di:waypoint x="481" y="352"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_D6EEEB5A-F456-40FA-8341-E842B460F370" dmnElementRef="_D6EEEB5A-F456-40FA-8341-E842B460F370">
+        <di:waypoint x="697" y="327"/>
+        <di:waypoint x="481" y="327"/>
       </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>

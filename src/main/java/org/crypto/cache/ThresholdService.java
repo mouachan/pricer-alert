@@ -44,7 +44,7 @@ public class ThresholdService {
     }
 
     public static String getKey(Threshold entry){
-        return entry.getId()+","+entry.getValue();
+        return entry.getId()+","+entry.getValues();
     }
 
     public Threshold findById(String key) {
@@ -65,10 +65,17 @@ public class ThresholdService {
         cacheManager.defineConfiguration("threshold", config.build());
         thresholdCache = cacheManager.getCache("threshold");
         thresholdCache.addListener(new CacheListener());
-        Threshold threshold = new Threshold("anisse", 10, "euro-dollar");
+        List<Double> values = new ArrayList<Double>();
+        values.add(Double.valueOf(9));
+        values.add(Double.valueOf(10));
+        values.add(Double.valueOf(11));
+       
+
+        Threshold threshold = new Threshold("anisse", values, "euro-dollar");
         String key = "euro-dollar";
         thresholdCache.put(key, threshold);
-        threshold = new Threshold("anisse", 10, "euro-dinars");
+      
+        threshold = new Threshold("anisse", values, "euro-dinars");
         key = "euro-dinars";
         thresholdCache.put(key, threshold);
         LOGGER.info("Cache initialized");

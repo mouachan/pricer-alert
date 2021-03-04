@@ -1,5 +1,8 @@
 package org.crypto.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.infinispan.protostream.annotations.ProtoFactory;
 import org.infinispan.protostream.annotations.ProtoField;
 
@@ -7,8 +10,8 @@ public class Threshold {
     @ProtoField(number = 1, defaultValue =  "0")
     String id;
 
-    @ProtoField(number = 2, defaultValue = "0")
-     double value;
+    @ProtoField(number = 2, collectionImplementation = ArrayList.class)
+	List<Double> values;
 
     @ProtoField(number = 3, defaultValue = "paire")
     String paire;
@@ -17,9 +20,9 @@ public class Threshold {
     public Threshold(){}
     
     @ProtoFactory
-    public Threshold(String id, double value, String paire){
+    public Threshold(String id, List<Double> values, String paire){
         this.id = id;
-        this.value = value;
+        this.values = values;
         this.paire = paire;
     }
 
@@ -27,15 +30,15 @@ public class Threshold {
     /**
      * @return double return the value
      */
-    public double getValue() {
-        return value;
+    public List<Double> getValues() {
+        return values;
     }
 
     /**
      * @param value the value to set
      */
-    public void setValue(double value) {
-        this.value = value;
+    public void setValues(List<Double> values) {
+        this.values = values;
     }
 
 	public String getId() {
@@ -60,9 +63,7 @@ public class Threshold {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((paire == null) ? 0 : paire.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(value);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((values == null) ? 0 : values.hashCode());
 		return result;
 	}
 
@@ -85,13 +86,18 @@ public class Threshold {
 				return false;
 		} else if (!paire.equals(other.paire))
 			return false;
-		if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value))
+		if (values == null) {
+			if (other.values != null)
+				return false;
+		} else if (!values.equals(other.values))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Threshold [id=" + id + ", paire=" + paire + ", value=" + value + "]";
+		return "Threshold [id=" + id + ", paire=" + paire + ", values=" + values + "]";
 	}
+
+	
 }
