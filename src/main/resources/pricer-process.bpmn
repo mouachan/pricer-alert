@@ -1,0 +1,305 @@
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" id="_WmX1kF70EDmjSriyLCohLA" exporter="jBPM Process Modeler" exporterVersion="2.0" targetNamespace="http://www.omg.org/bpmn20">
+  <bpmn2:itemDefinition id="_currencyItem" structureRef="org.crypto.model.Currency"/>
+  <bpmn2:itemDefinition id="_thresholdItem" structureRef="org.crypto.model.Threshold"/>
+  <bpmn2:itemDefinition id="_alertItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__09A3FDD4-241F-4DA7-8366-47EF74476D24_namespaceInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__09A3FDD4-241F-4DA7-8366-47EF74476D24_modelInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__09A3FDD4-241F-4DA7-8366-47EF74476D24_decisionInputXItem" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="__09A3FDD4-241F-4DA7-8366-47EF74476D24_currencyInputXItem" structureRef="org.crypto.model.Currency"/>
+  <bpmn2:itemDefinition id="__09A3FDD4-241F-4DA7-8366-47EF74476D24_thresholdInputXItem" structureRef="org.crypto.model.Threshold"/>
+  <bpmn2:itemDefinition id="__09A3FDD4-241F-4DA7-8366-47EF74476D24_alertOutputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__271298E5-A007-41BB-84A3-4FCB899E349A_eventInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="alertType" structureRef="String"/>
+  <bpmn2:itemDefinition id="__2068FEE7-E346-4ABF-9A73-5221DDD31B24_eventOutputXItem" structureRef="org.crypto.model.Currency"/>
+  <bpmn2:itemDefinition id="priceType" structureRef="org.crypto.model.Currency"/>
+  <bpmn2:itemDefinition id="__67E6DF11-5022-4AD5-B29D-B79E89012B9F_idInputXItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="__67E6DF11-5022-4AD5-B29D-B79E89012B9F_thresholdOutputXItem" structureRef="org.crypto.model.Threshold"/>
+  <bpmn2:message id="_WmZqwF70EDmjSriyLCohLA" itemRef="alertType" name="alert"/>
+  <bpmn2:message id="_WmZqwV70EDmjSriyLCohLA" itemRef="priceType" name="price"/>
+  <bpmn2:interface id="_67E6DF11-5022-4AD5-B29D-B79E89012B9F_ServiceInterface" name="org.crypto.cache.ThresholdService" implementationRef="org.crypto.cache.ThresholdService">
+    <bpmn2:operation id="_67E6DF11-5022-4AD5-B29D-B79E89012B9F_ServiceOperation" name="findById" implementationRef="findById"/>
+  </bpmn2:interface>
+  <bpmn2:process id="pricer" drools:packageName="org.crypto.process" drools:version="1.0" drools:adHoc="false" name="pricer" isExecutable="true" processType="Public">
+    <bpmn2:extensionElements>
+      <drools:import name="org.crypto.model.Currency"/>
+      <drools:import name="org.crypto.model.Threshold"/>
+    </bpmn2:extensionElements>
+    <bpmn2:property id="currency" itemSubjectRef="_currencyItem" name="currency"/>
+    <bpmn2:property id="threshold" itemSubjectRef="_thresholdItem" name="threshold"/>
+    <bpmn2:property id="alert" itemSubjectRef="_alertItem" name="alert"/>
+    <bpmn2:sequenceFlow id="_003D22B1-2A0C-4EEE-B5D7-178157BABCFE" sourceRef="_67E6DF11-5022-4AD5-B29D-B79E89012B9F" targetRef="_4681C5F2-BD01-45B5-8835-1828A8FBB3B6">
+      <bpmn2:extensionElements>
+        <drools:metaData name="isAutoConnection.source">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+        <drools:metaData name="isAutoConnection.target">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_FBF8B536-A1D6-4C30-AB18-B3A343707C3C" sourceRef="_2068FEE7-E346-4ABF-9A73-5221DDD31B24" targetRef="_67E6DF11-5022-4AD5-B29D-B79E89012B9F">
+      <bpmn2:extensionElements>
+        <drools:metaData name="isAutoConnection.source">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_E4D18DC3-44F3-4337-BAB6-907CBA9CB067" sourceRef="_09A3FDD4-241F-4DA7-8366-47EF74476D24" targetRef="_271298E5-A007-41BB-84A3-4FCB899E349A">
+      <bpmn2:extensionElements>
+        <drools:metaData name="isAutoConnection.source">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+        <drools:metaData name="isAutoConnection.target">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_585724AB-3EE1-43F3-9D44-F6894ABDB27E" sourceRef="_4681C5F2-BD01-45B5-8835-1828A8FBB3B6" targetRef="_09A3FDD4-241F-4DA7-8366-47EF74476D24">
+      <bpmn2:extensionElements>
+        <drools:metaData name="isAutoConnection.target">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+    </bpmn2:sequenceFlow>
+    <bpmn2:scriptTask id="_4681C5F2-BD01-45B5-8835-1828A8FBB3B6" name="Log Threshold" scriptFormat="http://www.java.com/java">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[Log Threshold]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_003D22B1-2A0C-4EEE-B5D7-178157BABCFE</bpmn2:incoming>
+      <bpmn2:outgoing>_585724AB-3EE1-43F3-9D44-F6894ABDB27E</bpmn2:outgoing>
+      <bpmn2:script>System.out.println("threshold "+threshold);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:serviceTask id="_67E6DF11-5022-4AD5-B29D-B79E89012B9F" drools:serviceimplementation="Java" drools:serviceinterface="org.crypto.cache.ThresholdService" drools:serviceoperation="findById" name="load threshold" implementation="Java" operationRef="_67E6DF11-5022-4AD5-B29D-B79E89012B9F_ServiceOperation">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[load threshold]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_FBF8B536-A1D6-4C30-AB18-B3A343707C3C</bpmn2:incoming>
+      <bpmn2:outgoing>_003D22B1-2A0C-4EEE-B5D7-178157BABCFE</bpmn2:outgoing>
+      <bpmn2:ioSpecification>
+        <bpmn2:dataInput id="_67E6DF11-5022-4AD5-B29D-B79E89012B9F_idInputX" drools:dtype="String" itemSubjectRef="__67E6DF11-5022-4AD5-B29D-B79E89012B9F_idInputXItem" name="id"/>
+        <bpmn2:dataOutput id="_67E6DF11-5022-4AD5-B29D-B79E89012B9F_thresholdOutputX" drools:dtype="org.crypto.model.Threshold" itemSubjectRef="__67E6DF11-5022-4AD5-B29D-B79E89012B9F_thresholdOutputXItem" name="threshold"/>
+        <bpmn2:inputSet>
+          <bpmn2:dataInputRefs>_67E6DF11-5022-4AD5-B29D-B79E89012B9F_idInputX</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet>
+          <bpmn2:dataOutputRefs>_67E6DF11-5022-4AD5-B29D-B79E89012B9F_thresholdOutputX</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:targetRef>_67E6DF11-5022-4AD5-B29D-B79E89012B9F_idInputX</bpmn2:targetRef>
+        <bpmn2:assignment>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression"><![CDATA[#{currency.getPaire()}]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression"><![CDATA[_67E6DF11-5022-4AD5-B29D-B79E89012B9F_idInputX]]></bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation>
+        <bpmn2:sourceRef>_67E6DF11-5022-4AD5-B29D-B79E89012B9F_thresholdOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>threshold</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:serviceTask>
+    <bpmn2:startEvent id="_2068FEE7-E346-4ABF-9A73-5221DDD31B24" name="price">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[price]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>_FBF8B536-A1D6-4C30-AB18-B3A343707C3C</bpmn2:outgoing>
+      <bpmn2:dataOutput id="_2068FEE7-E346-4ABF-9A73-5221DDD31B24_eventOutputX" drools:dtype="org.crypto.model.Currency" itemSubjectRef="__2068FEE7-E346-4ABF-9A73-5221DDD31B24_eventOutputXItem" name="event"/>
+      <bpmn2:dataOutputAssociation>
+        <bpmn2:sourceRef>_2068FEE7-E346-4ABF-9A73-5221DDD31B24_eventOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>currency</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+      <bpmn2:outputSet>
+        <bpmn2:dataOutputRefs>_2068FEE7-E346-4ABF-9A73-5221DDD31B24_eventOutputX</bpmn2:dataOutputRefs>
+      </bpmn2:outputSet>
+      <bpmn2:messageEventDefinition drools:msgref="price" messageRef="_WmZqwV70EDmjSriyLCohLA"/>
+    </bpmn2:startEvent>
+    <bpmn2:endEvent id="_271298E5-A007-41BB-84A3-4FCB899E349A" name="alert">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[alert]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_E4D18DC3-44F3-4337-BAB6-907CBA9CB067</bpmn2:incoming>
+      <bpmn2:dataInput id="_271298E5-A007-41BB-84A3-4FCB899E349A_eventInputX" drools:dtype="String" itemSubjectRef="__271298E5-A007-41BB-84A3-4FCB899E349A_eventInputXItem" name="event"/>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:sourceRef>alert</bpmn2:sourceRef>
+        <bpmn2:targetRef>_271298E5-A007-41BB-84A3-4FCB899E349A_eventInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:inputSet>
+        <bpmn2:dataInputRefs>_271298E5-A007-41BB-84A3-4FCB899E349A_eventInputX</bpmn2:dataInputRefs>
+      </bpmn2:inputSet>
+      <bpmn2:messageEventDefinition drools:msgref="alert" messageRef="_WmZqwF70EDmjSriyLCohLA"/>
+    </bpmn2:endEvent>
+    <bpmn2:businessRuleTask id="_09A3FDD4-241F-4DA7-8366-47EF74476D24" name="alert" implementation="http://www.jboss.org/drools/dmn">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[alert]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_585724AB-3EE1-43F3-9D44-F6894ABDB27E</bpmn2:incoming>
+      <bpmn2:outgoing>_E4D18DC3-44F3-4337-BAB6-907CBA9CB067</bpmn2:outgoing>
+      <bpmn2:ioSpecification>
+        <bpmn2:dataInput id="_09A3FDD4-241F-4DA7-8366-47EF74476D24_namespaceInputX" drools:dtype="java.lang.String" itemSubjectRef="__09A3FDD4-241F-4DA7-8366-47EF74476D24_namespaceInputXItem" name="namespace"/>
+        <bpmn2:dataInput id="_09A3FDD4-241F-4DA7-8366-47EF74476D24_decisionInputX" drools:dtype="java.lang.String" itemSubjectRef="__09A3FDD4-241F-4DA7-8366-47EF74476D24_decisionInputXItem" name="decision"/>
+        <bpmn2:dataInput id="_09A3FDD4-241F-4DA7-8366-47EF74476D24_modelInputX" drools:dtype="java.lang.String" itemSubjectRef="__09A3FDD4-241F-4DA7-8366-47EF74476D24_modelInputXItem" name="model"/>
+        <bpmn2:dataInput id="_09A3FDD4-241F-4DA7-8366-47EF74476D24_currencyInputX" drools:dtype="org.crypto.model.Currency" itemSubjectRef="__09A3FDD4-241F-4DA7-8366-47EF74476D24_currencyInputXItem" name="currency"/>
+        <bpmn2:dataInput id="_09A3FDD4-241F-4DA7-8366-47EF74476D24_thresholdInputX" drools:dtype="org.crypto.model.Threshold" itemSubjectRef="__09A3FDD4-241F-4DA7-8366-47EF74476D24_thresholdInputXItem" name="threshold"/>
+        <bpmn2:dataOutput id="_09A3FDD4-241F-4DA7-8366-47EF74476D24_alertOutputX" drools:dtype="String" itemSubjectRef="__09A3FDD4-241F-4DA7-8366-47EF74476D24_alertOutputXItem" name="alert"/>
+        <bpmn2:inputSet>
+          <bpmn2:dataInputRefs>_09A3FDD4-241F-4DA7-8366-47EF74476D24_namespaceInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_09A3FDD4-241F-4DA7-8366-47EF74476D24_decisionInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_09A3FDD4-241F-4DA7-8366-47EF74476D24_modelInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_09A3FDD4-241F-4DA7-8366-47EF74476D24_currencyInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_09A3FDD4-241F-4DA7-8366-47EF74476D24_thresholdInputX</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet>
+          <bpmn2:dataOutputRefs>_09A3FDD4-241F-4DA7-8366-47EF74476D24_alertOutputX</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:targetRef>_09A3FDD4-241F-4DA7-8366-47EF74476D24_namespaceInputX</bpmn2:targetRef>
+        <bpmn2:assignment>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression"><![CDATA[https://kiegroup.org/dmn/_0BD9C6A0-7B88-44A0-B508-567D6A969E20]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression"><![CDATA[_09A3FDD4-241F-4DA7-8366-47EF74476D24_namespaceInputX]]></bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:targetRef>_09A3FDD4-241F-4DA7-8366-47EF74476D24_decisionInputX</bpmn2:targetRef>
+        <bpmn2:assignment>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression"><![CDATA[alert]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression"><![CDATA[_09A3FDD4-241F-4DA7-8366-47EF74476D24_decisionInputX]]></bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:targetRef>_09A3FDD4-241F-4DA7-8366-47EF74476D24_modelInputX</bpmn2:targetRef>
+        <bpmn2:assignment>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression"><![CDATA[pricer-alert]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression"><![CDATA[_09A3FDD4-241F-4DA7-8366-47EF74476D24_modelInputX]]></bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:sourceRef>currency</bpmn2:sourceRef>
+        <bpmn2:targetRef>_09A3FDD4-241F-4DA7-8366-47EF74476D24_currencyInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:sourceRef>threshold</bpmn2:sourceRef>
+        <bpmn2:targetRef>_09A3FDD4-241F-4DA7-8366-47EF74476D24_thresholdInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation>
+        <bpmn2:sourceRef>_09A3FDD4-241F-4DA7-8366-47EF74476D24_alertOutputX</bpmn2:sourceRef>
+        <bpmn2:targetRef>alert</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:businessRuleTask>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="pricer">
+      <bpmndi:BPMNShape id="shape__09A3FDD4-241F-4DA7-8366-47EF74476D24" bpmnElement="_09A3FDD4-241F-4DA7-8366-47EF74476D24">
+        <dc:Bounds height="102" width="154" x="730" y="190"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__271298E5-A007-41BB-84A3-4FCB899E349A" bpmnElement="_271298E5-A007-41BB-84A3-4FCB899E349A">
+        <dc:Bounds height="56" width="56" x="957" y="213"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__2068FEE7-E346-4ABF-9A73-5221DDD31B24" bpmnElement="_2068FEE7-E346-4ABF-9A73-5221DDD31B24">
+        <dc:Bounds height="56" width="56" x="121" y="213"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__67E6DF11-5022-4AD5-B29D-B79E89012B9F" bpmnElement="_67E6DF11-5022-4AD5-B29D-B79E89012B9F">
+        <dc:Bounds height="102" width="154" x="231" y="190"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__4681C5F2-BD01-45B5-8835-1828A8FBB3B6" bpmnElement="_4681C5F2-BD01-45B5-8835-1828A8FBB3B6">
+        <dc:Bounds height="102" width="154" x="481" y="190"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge_shape__4681C5F2-BD01-45B5-8835-1828A8FBB3B6_to_shape__09A3FDD4-241F-4DA7-8366-47EF74476D24" bpmnElement="_585724AB-3EE1-43F3-9D44-F6894ABDB27E">
+        <di:waypoint x="558" y="241"/>
+        <di:waypoint x="807" y="292"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__09A3FDD4-241F-4DA7-8366-47EF74476D24_to_shape__271298E5-A007-41BB-84A3-4FCB899E349A" bpmnElement="_E4D18DC3-44F3-4337-BAB6-907CBA9CB067">
+        <di:waypoint x="884" y="241"/>
+        <di:waypoint x="957" y="241"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__2068FEE7-E346-4ABF-9A73-5221DDD31B24_to_shape__67E6DF11-5022-4AD5-B29D-B79E89012B9F" bpmnElement="_FBF8B536-A1D6-4C30-AB18-B3A343707C3C">
+        <di:waypoint x="177" y="241"/>
+        <di:waypoint x="308" y="241"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__67E6DF11-5022-4AD5-B29D-B79E89012B9F_to_shape__4681C5F2-BD01-45B5-8835-1828A8FBB3B6" bpmnElement="_003D22B1-2A0C-4EEE-B5D7-178157BABCFE">
+        <di:waypoint x="308" y="292"/>
+        <di:waypoint x="558" y="190"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmn2:relationship type="BPSimData">
+    <bpmn2:extensionElements>
+      <bpsim:BPSimData>
+        <bpsim:Scenario id="default" name="Simulationscenario">
+          <bpsim:ScenarioParameters/>
+          <bpsim:ElementParameters elementRef="_09A3FDD4-241F-4DA7-8366-47EF74476D24">
+            <bpsim:TimeParameters>
+              <bpsim:ProcessingTime>
+                <bpsim:NormalDistribution mean="0" standardDeviation="0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+            <bpsim:ResourceParameters>
+              <bpsim:Availability>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:Availability>
+              <bpsim:Quantity>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:Quantity>
+            </bpsim:ResourceParameters>
+            <bpsim:CostParameters>
+              <bpsim:UnitCost>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:UnitCost>
+            </bpsim:CostParameters>
+          </bpsim:ElementParameters>
+          <bpsim:ElementParameters elementRef="_67E6DF11-5022-4AD5-B29D-B79E89012B9F">
+            <bpsim:TimeParameters>
+              <bpsim:ProcessingTime>
+                <bpsim:NormalDistribution mean="0" standardDeviation="0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+            <bpsim:ResourceParameters>
+              <bpsim:Availability>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:Availability>
+              <bpsim:Quantity>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:Quantity>
+            </bpsim:ResourceParameters>
+            <bpsim:CostParameters>
+              <bpsim:UnitCost>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:UnitCost>
+            </bpsim:CostParameters>
+          </bpsim:ElementParameters>
+          <bpsim:ElementParameters elementRef="_4681C5F2-BD01-45B5-8835-1828A8FBB3B6">
+            <bpsim:TimeParameters>
+              <bpsim:ProcessingTime>
+                <bpsim:NormalDistribution mean="0" standardDeviation="0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+            <bpsim:ResourceParameters>
+              <bpsim:Availability>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:Availability>
+              <bpsim:Quantity>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:Quantity>
+            </bpsim:ResourceParameters>
+            <bpsim:CostParameters>
+              <bpsim:UnitCost>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:UnitCost>
+            </bpsim:CostParameters>
+          </bpsim:ElementParameters>
+        </bpsim:Scenario>
+      </bpsim:BPSimData>
+    </bpmn2:extensionElements>
+    <bpmn2:source>_WmX1kF70EDmjSriyLCohLA</bpmn2:source>
+    <bpmn2:target>_WmX1kF70EDmjSriyLCohLA</bpmn2:target>
+  </bpmn2:relationship>
+</bpmn2:definitions>
