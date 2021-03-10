@@ -1,11 +1,17 @@
 package org.crypto.model;
 
+
 public class Currency {
 
     private String paire;
     private double value;
 
     public Currency(){}
+
+    public Currency(String paire, double value){
+        this.paire = paire;
+        this.value = value;
+    }
 
     /**
      * @return String return the paire
@@ -34,5 +40,10 @@ public class Currency {
     public void setValue(double value) {
         this.value = value;
     }
+
+    @Override
+	public String toString() {
+		return "Currency [paire=" + paire + ", value=" + value + "]";
+	}
 
 }
